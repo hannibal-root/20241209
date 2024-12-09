@@ -1,7 +1,6 @@
 import model.CRUDOperations;
 
 import java.io.*;
-import java.util.*;
 
 //implement part 1
 public class Main implements CRUDOperations {
@@ -16,7 +15,7 @@ public class Main implements CRUDOperations {
     public static void main(String[] args) {
 
         Main service = new Main();
-        String filePath = "C:\\asztal\\Mazza_Mikey\\MasterField\\Day_11\\20241209\\db\\test_user_db.csv";
+        String filePath = "C:\\Users\\monik\\IdeaProjects\\20241209\\db\\test_user_db.csv";
 
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -51,9 +50,7 @@ public class Main implements CRUDOperations {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // Print the arrays (for testing purposes)
-        service.readAll();
+        System.out.println(full_name[service.findById("67778132")]);
 
     }
 
@@ -66,11 +63,11 @@ public class Main implements CRUDOperations {
     public void readAll() {
         for (int i = 0; i < 1000; i++) {
             System.out.println("----------------------------------");
-            System.out.println("ID: "+id[i]);
-            System.out.println("Teljes név: "+full_name[i]);
-            System.out.println("Email: "+email[i]);
-            System.out.println("Felhasználó név: "+user_name[i]);
-            System.out.println("Maccím: "+mac[i]);
+            System.out.println("ID: " + id[i]);
+            System.out.println("Teljes név: " + full_name[i]);
+            System.out.println("Email: " + email[i]);
+            System.out.println("Felhasználó név: " + user_name[i]);
+            System.out.println("Maccím: " + mac[i]);
 
         }
 
@@ -87,7 +84,51 @@ public class Main implements CRUDOperations {
     }
 
     @Override
-    public void findById(String id) {
+    public int findById(String id_) {
 
+        int n = arraySize;
+        for (int i = 0; i < n - 1; i++) { // TODO: n - 1 !!!!!!!!!!
+            for (int j = 0; j < n - i - 1; j++) {
+                if (id[j].compareTo(id[j + 1]) > 0) {
+                    String temp = id[j];
+                    id[j] = id[j + 1]; //Swap array[ j]and array[ j + 1]
+                    id[j + 1] = temp;
+
+                    temp = full_name[j];
+                    full_name[j] = full_name[j + 1]; //Swap array[ j]and array[ j + 1]
+                    full_name[j + 1] = temp;
+
+                    temp = email[j];
+                    email[j] = email[j + 1]; //Swap array[ j]and array[ j + 1]
+                    email[j + 1] = temp;
+
+                    temp = user_name[j];
+                    user_name[j] = user_name[j + 1]; //Swap array[ j]and array[ j + 1]
+                    user_name[j + 1] = temp;
+
+                    temp = mac[j];
+                    mac[j] = mac[j + 1]; //Swap array[ j]and array[ j + 1]
+                    mac[j + 1] = temp;
+
+                }
+            }
+        }
+        int low = 0;
+        int high = arraySize - 1;
+
+        while (low <= high) {
+            int middle = low + (high - low) / 2;
+            int comparison = id[middle].compareTo(id_);
+            if (comparison == 0) {
+                return middle;
+            } else if (comparison < 0) {
+                low = middle + 1;
+            } else {
+                high = middle - 1;
+            }
+        }
+
+        // Target not found
+        return -1;
     }
 }

@@ -13,6 +13,6 @@ public interface CRUDOperations {
     // Delete an entry by id
     void delete(String id);
 
-    // Find an entry by id
-    void findById(String id);
+    // Find an entry by id_
+    int findById(String id_);
 }
