@@ -15,8 +15,7 @@ public class Main implements CRUDOperations {
     public static void main(String[] args) {
 
         Main service = new Main();
-        //employee_db_driver elérési útvonalát kell beleírni!
-        String filePath = "";
+        String filePath = "C:\\Users\\monik\\IdeaProjects\\20241209\\db\\test_user_db.csv";
 
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -51,7 +50,7 @@ public class Main implements CRUDOperations {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        System.out.println(full_name[service.findById("67778132")]);
 
     }
 
@@ -85,7 +84,7 @@ public class Main implements CRUDOperations {
     }
 
     @Override
-    public void findById(String id_) {
+    public int findById(String id_) {
 
         int n = arraySize;
         for (int i = 0; i < n - 1; i++) { // TODO: n - 1 !!!!!!!!!!
@@ -114,5 +113,22 @@ public class Main implements CRUDOperations {
                 }
             }
         }
+        int low = 0;
+        int high = arraySize - 1;
+
+        while (low <= high) {
+            int middle = low + (high - low) / 2;
+            int comparison = id[middle].compareTo(id_);
+            if (comparison == 0) {
+                return middle;
+            } else if (comparison < 0) {
+                low = middle + 1;
+            } else {
+                high = middle - 1;
+            }
+        }
+
+        // Target not found
+        return -1;
     }
 }
