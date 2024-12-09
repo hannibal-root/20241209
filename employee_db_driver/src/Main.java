@@ -4,7 +4,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        String filePath = "C:/Users/Masterfield/IdeaProjects/20241209/db/test_user_db.csv";
+        String filePath = "";
 
         int arraySize = 0;
         String[] id = null;
