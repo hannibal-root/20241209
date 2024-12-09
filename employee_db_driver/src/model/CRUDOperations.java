@@ -5,7 +5,7 @@ public interface CRUDOperations {
     void create(String id, String fullName, String email, String userName, String mac);
 
     // Read all entries
-    void readAll();
+   void  readAll();
 
     // Update an entry by id
     void update(String id, String fullName, String email, String userName, String mac);
