@@ -6,6 +6,7 @@ import java.io.*;
 //implement part 1
 public class Main implements CRUDOperations, EmployesService {
     static int arraySize = 0;
+    static int newArraySize = 0;
     static String[] id = null;
     static String[] full_name = null;
     static String[] email = null;
@@ -25,6 +26,7 @@ public class Main implements CRUDOperations, EmployesService {
             if ((line = br.readLine()) != null) {
 
                 arraySize = Integer.parseInt(line.trim());
+                newArraySize = arraySize;
 
                 id = new String[arraySize];
                 full_name = new String[arraySize];
@@ -51,12 +53,12 @@ public class Main implements CRUDOperations, EmployesService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(full_name[service.findById("67778132")]);
-        System.out.println(mac[service.findById("67778132")]);
-        System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
+        //System.out.println(full_name[service.findById("67778132")]);
+        //System.out.println(mac[service.findById("67778132")]);
+        //System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
         service.changeAllMacAddress(mac);
-      service.delete("67778132");
-       // service.findById("67778132");
+        service.delete("67778132");
+        //service.findById("67778132");
         service.readAll();
 
     }
@@ -68,13 +70,14 @@ public class Main implements CRUDOperations, EmployesService {
 
     @Override
     public void readAll() {
-        for (int i = 0; i < arraySize; i++) {
-            System.out.println("----------------------------------");
+        for (int i = 0; i < newArraySize; i++) {
+            System.out.println("----------------------------------\n----------------------------------\n");
+            System.out.println("No. " + (i+1) + ".\n");
             System.out.println("ID: " + id[i]);
             System.out.println("Teljes név: " + full_name[i]);
             System.out.println("Email: " + email[i]);
             System.out.println("Felhasználó név: " + user_name[i]);
-            System.out.println("Maccím: " + mac[i]);
+            System.out.println("Maccím: " + mac[i] + "\n");
 
         }
 
@@ -87,7 +90,7 @@ public class Main implements CRUDOperations, EmployesService {
 
     @Override
     public void delete(String id_) {
-        int newArraySize = arraySize - 1;
+        newArraySize = arraySize - 1;
         String[] newId = new String[newArraySize];
         String[] newFull_name = new String[newArraySize];
         String[] newEmail = new String[newArraySize];
@@ -96,18 +99,20 @@ public class Main implements CRUDOperations, EmployesService {
 
 
         int index = findById(id_);
-        int newIndex = 0;
+        int j = 0;
 
         for (int i = 0; i < arraySize; i++) {
             if (i != index) {
 
-                newId[newIndex++] = id[i];
-                newUser_name[newIndex++] = user_name[i];
-                newEmail[newIndex++] = email[i];
-                newFull_name[newIndex++] = full_name[i];
-                newMac[newIndex++] = mac[i];
+                newId[j] = id[i];
+                newUser_name[j] = user_name[i];
+                newEmail[j] = email[i];
+                newFull_name[j] = full_name[i];
+                newMac[j] = mac[i];
 
+                j++;
             }
+
 
         }
         id = newId;
@@ -115,10 +120,9 @@ public class Main implements CRUDOperations, EmployesService {
         email = newEmail;
         full_name = newFull_name;
         mac = newMac;
-        arraySize = newArraySize;
+
 
     }
-
 
     @Override
     public int findById(String id_) {
