@@ -15,7 +15,8 @@ public class Main implements CRUDOperations {
     public static void main(String[] args) {
 
         Main service = new Main();
-        String filePath = "C:\\Users\\monik\\IdeaProjects\\20241209\\db\\test_user_db.csv";
+        //String filePath = "C:\\Users\\monik\\IdeaProjects\\20241209\\db\\test_user_db.csv";
+        String filePath = args[0];
 
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
