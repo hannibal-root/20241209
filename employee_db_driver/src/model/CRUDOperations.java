@@ -11,8 +11,9 @@ public interface CRUDOperations {
     void update(String id, String fullName, String email, String userName, String mac);
 
     // Delete an entry by id
-    void delete(String id);
+    void delete(String id_);
 
     // Find an entry by id_
     int findById(String id_);
+
 }
