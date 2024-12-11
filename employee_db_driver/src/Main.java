@@ -1,9 +1,10 @@
 import model.CRUDOperations;
+import model.EmployesService;
 
 import java.io.*;
 
 //implement part 1
-public class Main implements CRUDOperations {
+public class Main implements CRUDOperations, EmployesService {
     static int arraySize = 0;
     static String[] id = null;
     static String[] full_name = null;
@@ -52,6 +53,8 @@ public class Main implements CRUDOperations {
             e.printStackTrace();
         }
         System.out.println(full_name[service.findById("67778132")]);
+        System.out.println(mac[service.findById("67778132")]);
+        System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
 
     }
 
@@ -131,5 +134,21 @@ public class Main implements CRUDOperations {
 
         // Target not found
         return -1;
+    }
+
+    @Override
+    public String changeMacAddress(String mac) {
+
+        //mac.toCharArray()
+        char[] newMac = new char[mac.length()];
+        for (int i = 0; i < mac.length(); i++) {
+            if (mac.charAt(i) == '-') {
+                newMac[i] = ':';
+
+            } else {
+                newMac[i] = mac.charAt(i);
+            }
+        }
+        return new String(newMac);
     }
 }
