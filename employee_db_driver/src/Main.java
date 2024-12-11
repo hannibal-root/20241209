@@ -51,13 +51,13 @@ public class Main implements CRUDOperations, EmployesService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(full_name[service.findById("67778132")]);
-        System.out.println(mac[service.findById("67778132")]);
-        System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
-        service.changeAllMacAddress(mac);
-      service.delete("67778132");
-       // service.findById("67778132");
-        service.readAll();
+        //  System.out.println(full_name[service.findById("67778132")]);
+        //  System.out.println(mac[service.findById("67778132")]);
+        //  System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
+        //  service.changeAllMacAddress(mac);
+        // service.delete("67778132");
+         service.findById("67778132");
+         service.readAll();
 
     }
 
@@ -87,6 +87,7 @@ public class Main implements CRUDOperations, EmployesService {
 
     @Override
     public void delete(String id_) {
+
         int newArraySize = arraySize - 1;
         String[] newId = new String[newArraySize];
         String[] newFull_name = new String[newArraySize];
@@ -100,15 +101,14 @@ public class Main implements CRUDOperations, EmployesService {
 
         for (int i = 0; i < arraySize; i++) {
             if (i != index) {
-
-                newId[newIndex++] = id[i];
-                newUser_name[newIndex++] = user_name[i];
-                newEmail[newIndex++] = email[i];
-                newFull_name[newIndex++] = full_name[i];
-                newMac[newIndex++] = mac[i];
-
+                //Problem: newId[newIndex++] = id[i]; következő indexre kerül ,ezért lépi túl a tömböt
+                newId[newIndex] = id[i];
+                newUser_name[newIndex] = user_name[i];
+                newEmail[newIndex] = email[i];
+                newFull_name[newIndex] = full_name[i];
+                newMac[newIndex] = mac[i];
+                newIndex++; //My solution
             }
-
         }
         id = newId;
         user_name = newUser_name;
