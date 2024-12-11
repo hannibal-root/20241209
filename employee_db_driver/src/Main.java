@@ -16,7 +16,6 @@ public class Main implements CRUDOperations, EmployesService {
     public static void main(String[] args) {
 
         Main service = new Main();
-        //String filePath = "C:\\Users\\monik\\IdeaProjects\\20241209\\db\\test_user_db.csv";
         String filePath = args[0];
 
 
@@ -55,6 +54,8 @@ public class Main implements CRUDOperations, EmployesService {
         System.out.println(full_name[service.findById("67778132")]);
         System.out.println(mac[service.findById("67778132")]);
         System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
+        service.changeAllMacAddress(mac);
+        service.readAll();
 
     }
 
@@ -150,5 +151,16 @@ public class Main implements CRUDOperations, EmployesService {
             }
         }
         return new String(newMac);
+    }
+
+    @Override
+    public void changeAllMacAddress(String[] addresses) {
+
+        for (int i = 0; i < addresses.length; i++) {
+
+            addresses[i] = changeMacAddress(addresses[i]);
+
+        }
+
     }
 }
