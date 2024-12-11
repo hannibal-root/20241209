@@ -55,8 +55,8 @@ public class Main implements CRUDOperations, EmployesService {
         //  System.out.println(mac[service.findById("67778132")]);
         //  System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
         //  service.changeAllMacAddress(mac);
-        // service.delete("67778132");
-         service.findById("67778132");
+         service.delete("67778132"); //When you Run the code test it with CTRL+f=67778132
+        // service.findById("67778132");
          service.readAll();
 
     }
