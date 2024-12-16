@@ -8,7 +8,7 @@ public interface CRUDOperations {
    void  readAll();
 
     // Update an entry by id
-    void update(String id, String fullName, String email, String userName, String mac);
+    void update(String id_, String fullName_, String email_, String userName_, String mac_);
 
     // Delete an entry by id
     void delete(String id_);
