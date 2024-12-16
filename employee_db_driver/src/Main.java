@@ -56,7 +56,7 @@ public class Main implements CRUDOperations, EmployesService {
         //  System.out.println(mac[service.findById("67778132")]);
         //  System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
         //  service.changeAllMacAddress(mac);
-        service.delete("67778132"); //When you Run the code test it with CTRL+f=67778132
+        // service.delete("67778132"); //When you Run the code test it with CTRL+f=67778132
         // service.findById("67778132");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Create new ID");
@@ -69,9 +69,10 @@ public class Main implements CRUDOperations, EmployesService {
         String newInputUserName = scanner.nextLine();
         System.out.println("Create new Mac ");
         String newInputMac = scanner.nextLine();
-        service.create(newInputId, newInputFullName, newInputEmail, newInputUserName, newInputMac);
-        service.delete("004"); //When you Run the code test it with CTRL+f=67778132
-        service.readAll();
+        //service.create(newInputId, newInputFullName, newInputEmail, newInputUserName, newInputMac);
+        //service.delete("004"); //When you Run the code test it with CTRL+f=67778132
+        //service.readAll();
+        service.update(newInputId, newInputFullName, newInputEmail, newInputUserName, newInputMac);
 
     }
 
@@ -129,9 +130,34 @@ public class Main implements CRUDOperations, EmployesService {
     }
 
     @Override
-    public void update(String id, String fullName, String email, String userName, String mac) {
+    public void update(String id_, String fullName_, String email_, String userName_, String mac_) {
 
+        int index = findById(id_);
 
+        isNull(fullName_);
+
+        if (!isNull(fullName_)) {
+            full_name[index] = fullName_;
+        }
+        if (!isNull(email_)) {
+            email[index] = email_;
+        }
+        if (!isNull(userName_)) {
+            user_name[index] = userName_;
+        }
+        if (!isNull(mac_)) {
+            mac[index] = mac_;
+        }
+        System.out.println("-----------------UPDATED-----------------");
+        System.out.println("ID: " + id[index]);
+        System.out.println("Teljes név: " + full_name[index]);
+        System.out.println("Email: " + email[index]);
+        System.out.println("Felhasználó név: " + user_name[index]);
+        System.out.println("Maccím: " + mac[index]);
+    }
+
+    private static boolean isNull(String input) {
+         return (input == null || input.trim().isEmpty()); //!!!
     }
 
     @Override
