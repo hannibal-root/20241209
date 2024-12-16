@@ -51,11 +51,13 @@ public class Main implements CRUDOperations, EmployesService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(full_name[service.findById("67778132")]);
-        System.out.println(mac[service.findById("67778132")]);
-        System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
-        service.changeAllMacAddress(mac);
-        service.readAll();
+        //  System.out.println(full_name[service.findById("67778132")]);
+        //  System.out.println(mac[service.findById("67778132")]);
+        //  System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
+        //  service.changeAllMacAddress(mac);
+         service.delete("67778132"); //When you Run the code test it with CTRL+f=67778132
+        // service.findById("67778132");
+         service.readAll();
 
     }
 
@@ -66,7 +68,7 @@ public class Main implements CRUDOperations, EmployesService {
 
     @Override
     public void readAll() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < arraySize; i++) {
             System.out.println("----------------------------------");
             System.out.println("ID: " + id[i]);
             System.out.println("Teljes név: " + full_name[i]);
@@ -84,9 +86,39 @@ public class Main implements CRUDOperations, EmployesService {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String id_) {
+
+        int newArraySize = arraySize - 1;
+        String[] newId = new String[newArraySize];
+        String[] newFull_name = new String[newArraySize];
+        String[] newEmail = new String[newArraySize];
+        String[] newUser_name = new String[newArraySize];
+        String[] newMac = new String[newArraySize];
+
+
+        int index = findById(id_);
+        int newIndex = 0;
+
+        for (int i = 0; i < arraySize; i++) {
+            if (i != index) {
+                //Problem: newId[newIndex++] = id[i]; következő indexre kerül ,ezért lépi túl a tömböt
+                newId[newIndex] = id[i];
+                newUser_name[newIndex] = user_name[i];
+                newEmail[newIndex] = email[i];
+                newFull_name[newIndex] = full_name[i];
+                newMac[newIndex] = mac[i];
+                newIndex++; //My solution
+            }
+        }
+        id = newId;
+        user_name = newUser_name;
+        email = newEmail;
+        full_name = newFull_name;
+        mac = newMac;
+        arraySize = newArraySize;
 
     }
+
 
     @Override
     public int findById(String id_) {
