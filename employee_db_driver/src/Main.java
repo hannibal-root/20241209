@@ -20,6 +20,92 @@ public class Main implements CRUDOperations, EmployesService {
         String filePath = args[0];
 
 
+        loadFiles(filePath);
+
+        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Create new ID");
+//        String newInputId = scanner.nextLine();
+//        System.out.println("Create new Full Name");
+//        String newInputFullName = scanner.nextLine();
+//        System.out.println("Create new Email");
+//        String newInputEmail = scanner.nextLine();
+//        System.out.println("Create new User Name");
+//        String newInputUserName = scanner.nextLine();
+//        System.out.println("Create new Mac ");
+//        String newInputMac = scanner.nextLine();
+        boolean isRunning = true;
+
+        while (isRunning) {
+            System.out.println("\n=== CSV Data Manager ===");
+            System.out.println("1. Create New Entry");
+            System.out.println("2. Read All Entries");
+            System.out.println("3. Update Entry");
+            System.out.println("4. Delete Entry");
+            System.out.println("5. Find Entry by ID");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int options = scanner.nextInt();
+            switch (options) {
+                case 1:
+                    System.out.println("Create new ID");
+                    String newInputId = scanner.nextLine();
+                    System.out.println("Create new Full Name");
+                    String newInputFullName = scanner.nextLine();
+                    System.out.println("Create new Email");
+                    String newInputEmail = scanner.nextLine();
+                    System.out.println("Create new User Name");
+                    String newInputUserName = scanner.nextLine();
+                    System.out.println("Create new Mac ");
+                    String newInputMac = scanner.nextLine();
+                    service.create(newInputId, newInputFullName, newInputEmail, newInputUserName, newInputMac);
+                    System.out.println("New Entity CREATED: " + newInputId);
+                    break;
+
+                case 2:
+                    service.readAll();
+                    break;
+
+                case 3:
+                    System.out.print("Enter ID to update: ");
+                    String updateId = scanner.nextLine();
+                    System.out.print("Enter new Full Name: ");
+                    String updateFullName = scanner.nextLine();
+                    System.out.print("Enter new Email: ");
+                    String updateEmail = scanner.nextLine();
+                    System.out.print("Enter new User Name: ");
+                    String updateUserName = scanner.nextLine();
+                    System.out.print("Enter new MAC Address: ");
+                    String updateMac = scanner.nextLine();
+                    service.update(updateId, updateFullName, updateEmail, updateUserName, updateMac);
+                    System.out.println("USER UPDATED: " + updateId);
+                    break;
+
+                case 4:
+                    System.out.print("Enter ID to delete: ");
+                    String deleteId = scanner.nextLine();
+                    service.delete(deleteId);
+                    System.out.println("USER DELETED: " + deleteId);
+                    break;
+                case 5:
+                    System.out.println("Enter the you wanna looking for:");
+                    scanner.next();
+                    String findId = scanner.nextLine();
+                    service.printById(findId);
+                    break;
+                case 6:
+                    System.out.println("Exit program");
+                    isRunning = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+                    break;
+            }
+
+        }
+
+    }
+
+    private static void loadFiles(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
 
@@ -52,28 +138,16 @@ public class Main implements CRUDOperations, EmployesService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //  System.out.println(full_name[service.findById("67778132")]);
-        //  System.out.println(mac[service.findById("67778132")]);
-        //  System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
-        //  service.changeAllMacAddress(mac);
-        // service.delete("67778132"); //When you Run the code test it with CTRL+f=67778132
-        // service.findById("67778132");
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Create new ID");
-        String newInputId = scanner.nextLine();
-        System.out.println("Create new Full Name");
-        String newInputFullName = scanner.nextLine();
-        System.out.println("Create new Email");
-        String newInputEmail = scanner.nextLine();
-        System.out.println("Create new User Name");
-        String newInputUserName = scanner.nextLine();
-        System.out.println("Create new Mac ");
-        String newInputMac = scanner.nextLine();
-        //service.create(newInputId, newInputFullName, newInputEmail, newInputUserName, newInputMac);
-        //service.delete("004"); //When you Run the code test it with CTRL+f=67778132
-        //service.readAll();
-        service.update(newInputId, newInputFullName, newInputEmail, newInputUserName, newInputMac);
+    }
 
+    public void printById(String id_) {
+        int index = findById(id_);
+        System.out.println("-----------------UPDATED-----------------");
+        System.out.println("ID: " + id[index]); //PROBLEM IN HERE!!!!!!
+        System.out.println("Teljes név: " + full_name[index]);
+        System.out.println("Email: " + email[index]);
+        System.out.println("Felhasználó név: " + user_name[index]);
+        System.out.println("Maccím: " + mac[index]);
     }
 
     @Override
@@ -157,7 +231,7 @@ public class Main implements CRUDOperations, EmployesService {
     }
 
     private static boolean isNull(String input) {
-         return (input == null || input.trim().isEmpty()); //!!!
+        return (input == null || input.trim().isEmpty()); //!!!
     }
 
     @Override
