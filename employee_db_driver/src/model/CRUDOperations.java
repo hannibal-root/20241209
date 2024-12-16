@@ -2,7 +2,7 @@ package model;
 
 public interface CRUDOperations {
     // Create a new entry
-    void create(String id, String fullName, String email, String userName, String mac);
+    public void create(String id_, String fullName_, String email_, String userName_, String mac_);
 
     // Read all entries
    void  readAll();

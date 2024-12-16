@@ -2,6 +2,7 @@ import model.CRUDOperations;
 import model.EmployesService;
 
 import java.io.*;
+import java.util.Scanner;
 
 //implement part 1
 public class Main implements CRUDOperations, EmployesService {
@@ -55,14 +56,61 @@ public class Main implements CRUDOperations, EmployesService {
         //  System.out.println(mac[service.findById("67778132")]);
         //  System.out.println(service.changeMacAddress(mac[service.findById("67778132")]));
         //  service.changeAllMacAddress(mac);
-         service.delete("67778132"); //When you Run the code test it with CTRL+f=67778132
+        service.delete("67778132"); //When you Run the code test it with CTRL+f=67778132
         // service.findById("67778132");
-         service.readAll();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Create new ID");
+        String newInputId = scanner.nextLine();
+        System.out.println("Create new Full Name");
+        String newInputFullName = scanner.nextLine();
+        System.out.println("Create new Email");
+        String newInputEmail = scanner.nextLine();
+        System.out.println("Create new User Name");
+        String newInputUserName = scanner.nextLine();
+        System.out.println("Create new Mac ");
+        String newInputMac = scanner.nextLine();
+        service.create(newInputId, newInputFullName, newInputEmail, newInputUserName, newInputMac);
+        service.delete("004"); //When you Run the code test it with CTRL+f=67778132
+        service.readAll();
 
     }
 
     @Override
-    public void create(String id, String fullName, String email, String userName, String mac) {
+    public void create(String id_, String fullName_, String email_, String userName_, String mac_) {
+        int newArraySize = arraySize + 1;
+        String[] newId = new String[newArraySize];
+        String[] newFull_name = new String[newArraySize];
+        String[] newEmail = new String[newArraySize];
+        String[] newUser_name = new String[newArraySize];
+        String[] newMac = new String[newArraySize];
+
+        int newIndex = 0;
+
+        for (int i = 0; i < arraySize; i++) {
+
+            newId[newIndex] = id[i];
+            newUser_name[newIndex] = user_name[i];
+            newEmail[newIndex] = email[i];
+            newFull_name[newIndex] = full_name[i];
+            newMac[newIndex] = mac[i];
+            newIndex++;
+        }
+
+
+        newId[arraySize] = id_;
+        newUser_name[arraySize] = userName_;
+        newEmail[arraySize] = email_;
+        newFull_name[arraySize] = fullName_;
+        newMac[arraySize] = mac_;
+
+
+        id = newId;
+        user_name = newUser_name;
+        email = newEmail;
+        full_name = newFull_name;
+        mac = newMac;
+        arraySize = newArraySize;
+
 
     }
 
@@ -83,6 +131,7 @@ public class Main implements CRUDOperations, EmployesService {
     @Override
     public void update(String id, String fullName, String email, String userName, String mac) {
 
+
     }
 
     @Override
@@ -101,13 +150,12 @@ public class Main implements CRUDOperations, EmployesService {
 
         for (int i = 0; i < arraySize; i++) {
             if (i != index) {
-                //Problem: newId[newIndex++] = id[i]; következő indexre kerül ,ezért lépi túl a tömböt
                 newId[newIndex] = id[i];
                 newUser_name[newIndex] = user_name[i];
                 newEmail[newIndex] = email[i];
                 newFull_name[newIndex] = full_name[i];
                 newMac[newIndex] = mac[i];
-                newIndex++; //My solution
+                newIndex++;
             }
         }
         id = newId;
