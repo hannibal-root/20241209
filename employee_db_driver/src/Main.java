@@ -88,7 +88,7 @@ public class Main implements CRUDOperations, EmployesService {
                     break;
                 case 5:
                     System.out.println("Enter the you wanna looking for:");
-                    scanner.next();
+                    scanner.nextLine(); //FIXED   Problem: scanner.next() --> the findId made into -1
                     String findId = scanner.nextLine();
                     service.printById(findId);
                     break;
